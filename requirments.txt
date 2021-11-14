@@ -1,0 +1,7 @@
+llvmlite==0.37.0
+numba==0.54.1
+numpy==1.20.3
+opencv-python==4.5.4.58
+pygame==2.1.0
+pyvirtualcam==0.8.0
+yapf==0.31.0
