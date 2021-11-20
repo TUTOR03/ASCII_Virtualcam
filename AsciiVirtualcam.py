@@ -88,5 +88,5 @@ class VideoToAscii:
 			self.clock.tick(30)
 
 if __name__ == '__main__':
-	videoConverter = VideoToAscii()
+	videoConverter = VideoToAscii(path='./video_test.mp4')
 	videoConverter.run()
