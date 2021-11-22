@@ -19,7 +19,7 @@ This is a small python script that converts video from your camera or video file
 4. Install all dependencies: `pip install -r requirments.txt`
 5. Start the script: `python3 AsciiVirtualcam.py`
 6. Profit!!!
-![Profit example](../assets/example.jpg?raw=true)
+   ![Profit example](../assets/example.jpg?raw=true)
 
 ### PS
 

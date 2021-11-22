@@ -1,0 +1,12 @@
+node_modules/
+.github/
+.vscode/
+.*rc
+yarn.lock
+build/
+env/
+*.md
+dist/
+public/
+static/
+templates/

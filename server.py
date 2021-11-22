@@ -6,7 +6,6 @@ from fastapi.templating import Jinja2Templates
 
 import os
 import uvicorn
-import cv2
 import asyncio
 from av import VideoFrame
 
@@ -16,11 +15,15 @@ from aiortc.contrib.media import MediaRelay
 
 from schemas import Offer
 
+from AsciiFrameConverter import AsciiFrameConverter
+
 ROOT = os.path.dirname(__file__)
 personConnections = set()
 relay = MediaRelay()
 
 app = FastAPI()
+
+frameConverter = AsciiFrameConverter()
 
 app.mount('/static', StaticFiles(directory='static'), name='static')
 
@@ -43,14 +46,12 @@ class VideoTransformTrack(MediaStreamTrack):
 
 	async def recv(self):
 		frame = await self.track.recv()
+		# asciiFrame = frameConverter.convertFrame(frame.to_ndarray(format='bgr24'))
 
-		# img = frame.to_ndarray(format='bgr24')
-		# img = cv2.cvtColor(cv2.Canny(img, 100, 200), cv2.COLOR_GRAY2BGR)
-
-		# new_frame = VideoFrame.from_ndarray(img, format='bgr24')
-		# new_frame.pts = frame.pts
-		# new_frame.time_base = frame.time_base
-		# return new_frame
+		# newFrame = VideoFrame.from_ndarray(asciiFrame, format='bgr24')
+		# newFrame.pts = frame.pts
+		# newFrame.time_base = frame.time_base
+		# return newFrame
 		return frame
 
 @app.post('/offer')
