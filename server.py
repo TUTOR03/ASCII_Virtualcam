@@ -3,6 +3,7 @@ from fastapi.params import Body
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
 
 import os
 import uvicorn
@@ -23,9 +24,17 @@ relay = MediaRelay()
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
 frameConverter = AsciiFrameConverter()
 
-app.mount('/static', StaticFiles(directory='static'), name='static')
+app.mount('/static', StaticFiles(directory='./build/dist'), name='static')
 
 templates = Jinja2Templates(directory='templates')
 
@@ -46,13 +55,12 @@ class VideoTransformTrack(MediaStreamTrack):
 
 	async def recv(self):
 		frame = await self.track.recv()
-		# asciiFrame = frameConverter.convertFrame(frame.to_ndarray(format='bgr24'))
+		asciiFrame = frameConverter.convertFrame(frame.to_ndarray(format='bgr24'))
 
-		# newFrame = VideoFrame.from_ndarray(asciiFrame, format='bgr24')
-		# newFrame.pts = frame.pts
-		# newFrame.time_base = frame.time_base
-		# return newFrame
-		return frame
+		newFrame = VideoFrame.from_ndarray(asciiFrame, format='bgr24')
+		newFrame.pts = frame.pts
+		newFrame.time_base = frame.time_base
+		return newFrame
 
 @app.post('/offer')
 async def offer(offerParams: Offer = Body(...)):
@@ -61,16 +69,9 @@ async def offer(offerParams: Offer = Body(...)):
 	personConnection = RTCPeerConnection()
 	personConnections.add(personConnection)
 
-	@personConnection.on('datachannel')
-	def onDatachannel(channel):
-		@channel.on('message')
-		def on_message(message):
-			if isinstance(message, str) and message.startswith('ping'):
-				channel.send('pong' + message[4:])
-
 	@personConnection.on('connectionstatechange')
 	async def onConnectionStateChange():
-		if personConnection.connectionState == 'failed' or personConnection.connectionState == 'closed':
+		if personConnection.connectionState == 'failed':
 			await personConnection.close()
 			personConnections.discard(personConnection)
 

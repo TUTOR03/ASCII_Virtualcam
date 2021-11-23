@@ -12,9 +12,10 @@
     "lib": ["DOM"],
     "allowJs": true,
     "paths": {
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./types"],
   "exclude": ["node_modules"]
 }

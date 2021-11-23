@@ -15,11 +15,11 @@ def acceleratedCharIndexes(img, width, height, asciiConst, step):
 class AsciiFrameConverter:
 	def __init__(
 	    self,
-	    resolution=(640, 480),
-	    fontSize=10,
-	    asciiAlth=' .",:;!~+-xmo*#W8&@',
+	    resolution=(920, 518),
+	    fontSize=12,
+	    asciiAlth=' .",:;!-~+=xmo*#W8&@',
 	    asciiStep=1,
-	    bold=2,
+	    bold=1,
 	):
 
 		self.fontSize = fontSize
@@ -38,10 +38,8 @@ class AsciiFrameConverter:
 
 	def convertFrame(self, frame):
 		frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		# print(frame.shape)
-		# frame = cv2.resize(frame, (self.wantedResolution[0], self.wantedResolution[1]),
-		#                    interpolation=cv2.INTER_CUBIC)
-		asciiFrame = np.zeros((self.wantedResolution[1], self.wantedResolution[0], 3), dtype=np.uint8)
+		frame = cv2.resize(frame, self.wantedResolution, interpolation=cv2.INTER_LINEAR)
+		asciiFrame = np.zeros((*self.wantedResolution[::-1], 3), dtype=np.uint8)
 		charIndexes = acceleratedCharIndexes(frame, self.wantedResolution[1], self.wantedResolution[0],
 		                                     self.asciiConst, self.charStep)
 		for charIndex, pos in charIndexes:
