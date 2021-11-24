@@ -16,7 +16,7 @@ This is a small python script that converts video from your camera or video file
 1. Be sure you have OBS installed
 2. Create python virtual enviroment with: `python3 -m venv env`
 3. Activate the virtual enviroment: `source env/bin/activate`
-4. Install all dependencies: `pip install -r requirments.txt`
+4. Install all dependencies: `pip install -r requirements.txt`
 5. Start the script: `python3 AsciiVirtualcam.py`
 6. Profit!!!
    ![Profit example](../assets/example.jpg?raw=true)
