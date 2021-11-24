@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: python3 server.py
+    ports:
+      - "127.0.0.1:${DOCKER_OUT_PORT}:${PORT}"

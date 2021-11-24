@@ -13,6 +13,7 @@ from av import VideoFrame
 from aiortc import RTCSessionDescription, MediaStreamTrack
 from aiortc.rtcpeerconnection import RTCPeerConnection
 from aiortc.contrib.media import MediaRelay
+from config import HOST, IS_DEV, PORT
 
 from schemas import Offer
 
@@ -94,4 +95,4 @@ async def on_shutdown():
 	personConnections.clear()
 
 if __name__ == '__main__':
-	uvicorn.run('server:app', host='0.0.0.0', port=3000, reload=True)
+	uvicorn.run('server:app', host=HOST, port=PORT, reload=IS_DEV)
