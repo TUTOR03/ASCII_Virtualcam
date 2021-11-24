@@ -11,12 +11,18 @@ const useAsciiCam = () => {
 
   const createPeerConnection = () => {
     peerConnection.current = new RTCPeerConnection({
-      // iceServers: freeice(),
+      iceServers: [
+        {
+          urls: 'stun:stun.l.google.com:19302',
+        },
+      ],
+      iceCandidatePoolSize: 1,
     })
 
     peerConnection.current.addEventListener('connectionstatechange', () => {
       if (peerConnection.current?.connectionState === 'failed') {
         stopAsciiCam()
+        throw new Error('Connection to server failed')
       }
     })
 
@@ -33,24 +39,41 @@ const useAsciiCam = () => {
       await peerConnection.current.setLocalDescription(offer)
 
       await new Promise((resolve) => {
-        if (peerConnection.current?.iceGatheringState === 'complete') {
-          resolve(null)
-        } else {
-          const waitICEGathering = () => {
-            if (peerConnection.current?.iceGatheringState === 'complete') {
-              peerConnection.current?.removeEventListener(
-                'icegatheringstatechange',
-                waitICEGathering
-              )
-              resolve(null)
-            }
+        if (peerConnection.current) {
+          const checkICECandidateGot = () => {
+            peerConnection.current?.removeEventListener(
+              'icecandidate',
+              checkICECandidateGot
+            )
+            setTimeout(() => resolve(null), 2000)
           }
-          peerConnection.current?.addEventListener(
-            'icegatheringstatechange',
-            waitICEGathering
+
+          peerConnection.current.addEventListener(
+            'icecandidate',
+            checkICECandidateGot
           )
         }
       })
+
+      // await new Promise((resolve) => {
+      //   if (peerConnection.current?.iceGatheringState === 'complete') {
+      //     resolve(null)
+      //   } else {
+      //     const waitICEGathering = () => {
+      //       if (peerConnection.current?.iceGatheringState === 'complete') {
+      //         peerConnection.current?.removeEventListener(
+      //           'icegatheringstatechange',
+      //           waitICEGathering
+      //         )
+      //         resolve(null)
+      //       }
+      //     }
+      //     peerConnection.current?.addEventListener(
+      //       'icegatheringstatechange',
+      //       waitICEGathering
+      //     )
+      //   }
+      // })
 
       const desc = peerConnection.current.localDescription
       const res = await fetch('/offer', {
@@ -98,8 +121,10 @@ const useAsciiCam = () => {
   const startAsciiCam = async () => {
     setIsLoadingState(true)
     setVideoState(true)
+
+    createPeerConnection()
+
     try {
-      createPeerConnection()
       localStream.current = await navigator.mediaDevices.getUserMedia({
         video: {
           width: 920,
