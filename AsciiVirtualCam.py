@@ -18,10 +18,10 @@ class VideoToAscii:
 	def __init__(
 	    self,
 	    path: Union[int, str] = 0,
-	    resolution=(900, 600),
+	    resolution=(720, 480),
 	    fontSize=12,
-	    asciiAlth=" .',:;!~+-xmo*#W8&@",
-	    asciiStep=0.6,
+	    asciiAlth=' .",:;!-~+=xmo*#W8&@',
+	    asciiStep=0.8,
 	    bold=5,
 	):
 
@@ -90,10 +90,10 @@ class VideoToAscii:
 		cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-	resolution = (600, 480)
+	resolution = (720, 480)
 	fontSize = 12
-	asciiAlth = " .',:;!~+-xmo*#W8&@"
-	asciiStep = 0.6
+	asciiAlth = ' .",:;!-~+=xmo*#W8&@'
+	asciiStep = 0.8
 	bold = 5
 
 	argv = sys.argv[1:]
