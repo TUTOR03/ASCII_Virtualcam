@@ -99,7 +99,8 @@ if __name__ == '__main__':
 	argv = sys.argv[1:]
 
 	def printUsageLine():
-		print('AsciiVirtualCam.py -r <width>, <height>')
+		print(
+		    'AsciiVirtualCam.py -r <width>, <height> -f <fontSize> -a <asciiAlth> -s <asciiStep> -b <asciiBold>')
 
 	try:
 		opts, args = getopt.getopt(argv, 'hr:f:a:s:b:', ['resolution=', 'fontSize=', 'alth=', 'step=', 'bold='])
