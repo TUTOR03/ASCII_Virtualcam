@@ -42,7 +42,7 @@ const Description: React.FC = () => {
           />
         </ListItem>
         <ListItem>
-          <ListItemText primary="5. Start the script: python3 AsciiVirtualcam.py" />
+          <ListItemText primary="5. Start the script: python3 AsciiVirtualcam.py -r <width>, <height> -f <fontSize> -a <asciiAlth> -s <asciiStep> -b <asciiBold>" />
         </ListItem>
         <ListItem>
           <ListItemText primary="6. Profit!!!" />
