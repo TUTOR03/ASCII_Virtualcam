@@ -19,11 +19,11 @@ This is a small python script that converts video from your camera or video file
 3. Activate the virtual enviroment: `source env/bin/activate`
 4. Install all dependencies: `pip install -r requirements.txt`
 5. Start the script:<br/>`python3 AsciiVirtualcam.py -r <width>, <height> -f <fontSize> -a <asciiAlth> -s <asciiStep> -b <asciiBold>`
-7. Profit!!! <br/><br/>
+6. Profit!!! <br/><br/>
    ![Profit example](../assets/example.jpg?raw=true)
 
 ### Demo
 
-You can check demo of this script here:
+You can check demo of this script here: [asciicam.stuvars.com](https://asciicam.stuvars.com/)
 
 You can find source of this web application on branch: [`fastAPI_demo`](https://github.com/TUTOR03/ASCII_Virtualcam/tree/fastAPI_demo)
