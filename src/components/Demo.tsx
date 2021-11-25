@@ -31,6 +31,10 @@ const Demo: React.FC = () => {
       <Typography variant="h3" my={2} textAlign="center">
         DEMO
       </Typography>
+      <Typography variant="subtitle2" my={2} textAlign="center">
+        *Sorry, but this demo can work only with one person at a time, because
+        my server is really slow :)
+      </Typography>
       <Box
         sx={{
           display: 'flex',

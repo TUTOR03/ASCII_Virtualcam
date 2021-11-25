@@ -65,6 +65,8 @@ class VideoTransformTrack(MediaStreamTrack):
 
 @app.post('/offer')
 async def offer(offerParams: Offer = Body(...)):
+	if len(personConnections) >= 1:
+		return {'status': 'error', 'error': 'Maximum number of connections reached'}
 	offer = RTCSessionDescription(sdp=offerParams.sdp, type=offerParams.type)
 
 	personConnection = RTCPeerConnection()
@@ -86,7 +88,11 @@ async def offer(offerParams: Offer = Body(...)):
 	answer = await personConnection.createAnswer()
 	await personConnection.setLocalDescription(answer)
 
-	return {'sdp': personConnection.localDescription.sdp, 'type': personConnection.localDescription.type}
+	return {
+	    'status': 'ok',
+	    'sdp': personConnection.localDescription.sdp,
+	    'type': personConnection.localDescription.type
+	}
 
 @app.on_event("shutdown")
 async def on_shutdown():

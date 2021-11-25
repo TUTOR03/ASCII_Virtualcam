@@ -22,7 +22,8 @@ const Header: React.FC = () => {
         <Box
           sx={{
             width: '10%',
-            minWidth: '100px',
+            minWidth: '70px',
+            minHeight: '40px',
           }}
         >
           <MyStyledImg
@@ -33,7 +34,8 @@ const Header: React.FC = () => {
         <Box
           sx={{
             width: '10%',
-            minWidth: '100px',
+            minWidth: '70px',
+            minHeight: '40px',
           }}
         >
           <MyStyledImg
@@ -44,12 +46,25 @@ const Header: React.FC = () => {
         <Box
           sx={{
             width: '10%',
-            minWidth: '100px',
+            minWidth: '70px',
+            minHeight: '40px',
           }}
         >
           <MyStyledImg
             src="https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white"
             alt="NumPy"
+          />
+        </Box>
+        <Box
+          sx={{
+            width: '10%',
+            minWidth: '70px',
+            minHeight: '40px',
+          }}
+        >
+          <MyStyledImg
+            src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi"
+            alt="FastAPI"
           />
         </Box>
       </Stack>

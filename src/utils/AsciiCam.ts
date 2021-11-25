@@ -87,6 +87,12 @@ const useAsciiCam = () => {
         },
       })
       const resJSON = await res.json()
+      if (resJSON.status === 'error') {
+        alert(
+          'Sorry, but maximum number of connections reached. Please wait until it will be free'
+        )
+        throw new Error(resJSON.error)
+      }
       await peerConnection.current.setRemoteDescription(resJSON)
     }
   }
@@ -142,7 +148,7 @@ const useAsciiCam = () => {
       setIsLoadingState(false)
     } catch (error) {
       stopAsciiCam()
-      alert(error)
+      console.log(error)
     }
   }
 
